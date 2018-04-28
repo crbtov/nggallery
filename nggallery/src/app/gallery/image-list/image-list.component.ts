@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Image } from '../../models/image';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-image-list',
@@ -7,12 +8,15 @@ import { Image } from '../../models/image';
   styles: []
 })
 export class ImageListComponent implements OnInit {
-  image = new Image ('1', 'Primera Imagen', 'Descripción primera imagen',
-  'https://videotutoriales.com/mspa/mspa1-1.jpg',
-  'https://videotutoriales.com/mspa/mspa1.jpg');
-  constructor() { }
+  images: Image[] = [];
+  selectedImage: Image;
+  constructor(private imageService: ImageService) { }
 
   ngOnInit() {
+    this.images = this.imageService.getImages();
   }
 
+  onSelect(image: Image) {
+    this.selectedImage = image;
+  }
 }
